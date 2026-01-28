@@ -2,7 +2,7 @@
 //  SignUpVC.swift
 //  Code Building
 //
-//  Created by seshi on 1/27/26.
+//  Created by sai on 1/27/26.
 //
 
 import UIKit
@@ -117,7 +117,7 @@ class SignUpVC: UIViewController {
             ])
         }
         signUpBtn = UIButton()
-        signUpBtn?.setTitle("Login", for: .normal)
+        signUpBtn?.setTitle("Sign Up", for: .normal)
         signUpBtn?.setTitleColor(.white, for: .normal)
         signUpBtn?.backgroundColor = .red
         signUpBtn?.layer.cornerRadius = 8

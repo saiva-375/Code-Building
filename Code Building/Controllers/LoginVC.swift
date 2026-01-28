@@ -2,12 +2,14 @@
 //  ViewController.swift
 //  Code Building
 //
-//  Created by seshi on 1/27/26.
+//  Created by sai on 1/27/26.
 //
 
 import UIKit
 
 class LoginVC: UIViewController {
+    
+    //MARK: Properties declaration
     
     var titleLabel: UILabel?
     var usernameTB: UITextField?
@@ -15,10 +17,14 @@ class LoginVC: UIViewController {
     var loginBtn: UIButton?
     var signUpBtn: UIButton?
 
+    //MARK: View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        //MARK: Object set up
         
         //Created title label
         titleLabel = UILabel()
@@ -81,6 +87,14 @@ class LoginVC: UIViewController {
             ])
         }
         
+        func loginBtnTapped() {
+            guard let passwordTB = passwordTB?.text, !passwordTB.isEmpty else {
+                showAlert(title: "Error", message: "Please enter password")
+                return
+            }
+            
+            navigateToHomeScreen()
+        }
         
         loginBtn = UIButton()
         loginBtn?.setTitle("Login", for: .normal)
@@ -88,7 +102,9 @@ class LoginVC: UIViewController {
         loginBtn?.backgroundColor = .red
         loginBtn?.layer.cornerRadius = 8
         loginBtn?.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        loginBtn?.addAction(UIAction {_ in loginBtnTapped()}, for: .touchUpInside)
         loginBtn?.translatesAutoresizingMaskIntoConstraints = false
+
         
         if let login = loginBtn {
             view.addSubview(login)
@@ -101,12 +117,20 @@ class LoginVC: UIViewController {
             ])
         }
         
+        func signUpButtonTapped() {
+            guard signUpBtn != nil else { return }
+            
+            navigateToSignUpScreen()
+        }
+        
         signUpBtn = UIButton()
         signUpBtn?.setTitle("Sign Up", for: .normal)
         signUpBtn?.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         signUpBtn?.setTitleColor(.red, for: .normal)
         signUpBtn?.tintColor = .red
+        signUpBtn?.addAction(UIAction{_ in signUpButtonTapped()} , for: .touchUpInside)
         signUpBtn?.translatesAutoresizingMaskIntoConstraints = false
+        
         
         if let signUp = signUpBtn {
             view.addSubview(signUp)
@@ -117,6 +141,41 @@ class LoginVC: UIViewController {
                 signUp.widthAnchor.constraint(equalToConstant: 280),
                 signUp.heightAnchor.constraint(equalToConstant: 44)
             ])
+        }
+        
+        //MARK: User actions
+        
+        
+        
+        func signUpButtonTapped(_ sender: Any) {
+            guard signUpBtn != nil else { return }
+            
+            navigateToSignUpScreen()
+        }
+        
+        func showAlert(title: String, message: String){
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+        
+        func navigateToHomeScreen() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let objHomeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as? HomeVC
+            if let homeVC = objHomeVC {
+                homeVC.name = usernameTB?.text ?? ""
+                self.navigationController?.pushViewController(homeVC, animated: true)
+            }
+        }
+        
+        func navigateToSignUpScreen() {
+            let storynoard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let objSignUpVC = storynoard.instantiateViewController(withIdentifier: "SignUpVC") as? SignUpVC
+            if let signUpVC = objSignUpVC {
+                self.navigationController?.pushViewController(signUpVC, animated: true)
+            }
         }
     }
 }

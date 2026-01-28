@@ -56,6 +56,21 @@
             </objects>
             <point key="canvasLocation" x="2639" y="101"/>
         </scene>
+        <!--TableVC-->
+        <scene sceneID="xiO-Ra-Vlh">
+            <objects>
+                <viewController storyboardIdentifier="TableVC" id="fZv-1j-SwD" customClass="TableVC" customModule="Code_Building" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6hx-Ll-jgH">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="hUo-FJ-vTI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gUh-Y5-5Gd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3436" y="101"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="0rl-gY-7Jm">
             <objects>
@@ -67,7 +82,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ApC-SH-Jo7"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="sj9-mD-tDY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dzZ-vN-L9C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

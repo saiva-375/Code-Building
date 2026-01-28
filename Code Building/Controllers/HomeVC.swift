@@ -2,7 +2,7 @@
 //  HomeVC.swift
 //  Code Building
 //
-//  Created by seshi on 1/27/26.
+//  Created by sai on 1/27/26.
 //
 
 import UIKit
@@ -12,7 +12,8 @@ class HomeVC: UIViewController {
     var titleLabel: UILabel?
     var descriptionLabel: UILabel?
     var addBtn: UIButton?
-
+    
+    var name: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,7 +21,7 @@ class HomeVC: UIViewController {
         
         //Creating title label
         titleLabel = UILabel()
-        titleLabel?.text = "Add Vehicle?"
+        titleLabel?.text = "Add Vehicle - \(name ?? "")"
         titleLabel?.textAlignment = .center
         titleLabel?.textColor = .red
         titleLabel?.font = UIFont.systemFont(ofSize: 30, weight: .bold)
@@ -42,7 +43,7 @@ class HomeVC: UIViewController {
         descriptionLabel?.textAlignment = .center
         descriptionLabel?.textColor = .black
         descriptionLabel?.numberOfLines = 0
-        descriptionLabel?.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        descriptionLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         descriptionLabel?.translatesAutoresizingMaskIntoConstraints = false
         
         //Adding the label to subview
@@ -52,8 +53,15 @@ class HomeVC: UIViewController {
             //Setting the constraints
             NSLayoutConstraint.activate([
                 dLabel.topAnchor.constraint(equalTo: titleLabel!.topAnchor, constant: 80),
-                dLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+                dLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                dLabel.widthAnchor.constraint(equalToConstant: 300),
+                dLabel.heightAnchor.constraint(equalToConstant: 100)
             ])
+        }
+        func addBtnTapped(){
+            guard addBtn != nil else { return }
+            
+            navigateToTableScreen()
         }
         
         addBtn = UIButton()
@@ -61,6 +69,7 @@ class HomeVC: UIViewController {
         addBtn?.setTitleColor(.white, for: .normal)
         addBtn?.backgroundColor = .red
         addBtn?.layer.cornerRadius = 10
+        addBtn?.addAction(UIAction{_ in addBtnTapped()} , for: .touchUpInside)
         addBtn?.translatesAutoresizingMaskIntoConstraints = false
         
         if let addButton = addBtn {
@@ -71,6 +80,16 @@ class HomeVC: UIViewController {
                 addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 addButton.widthAnchor.constraint(equalToConstant: 200)
             ])
+        }
+        
+        func navigateToTableScreen(){
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let objTableVC = storyboard.instantiateViewController(withIdentifier: "TableVC") as? TableVC
+            if let tableVC = objTableVC {
+                tableVC.name = name ?? ""
+                self.navigationController?.pushViewController(tableVC, animated: true)
+            }
         }
     }
 }
